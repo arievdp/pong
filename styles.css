@@ -16,6 +16,7 @@ canvas {
   z-index: 100;
   background: none;
   color: white;
+  pointer-events: none;
 }
 
 .score-card {
