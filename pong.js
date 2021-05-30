@@ -113,15 +113,13 @@ Player.prototype.update = function() {
     }
   }
   for (var i = touches?.length - 1; i >= 0; i--) {
-    console.log(touches)
-      let centerX = canvas.offsetLeft + canvas.offsetWidth / 2;
-      var touch = touches[i];
-      if (touch.screenX < centerX) {
-        this.paddle.move(-4, 0);
-      } else if (touch.screenX > centerX) {
-        this.paddle.move(4, 0);
-      }
-      
+    let centerX = canvas.offsetLeft + canvas.offsetWidth / 2;
+    var touch = touches[i];
+    if (touch.screenX < centerX) {
+      this.paddle.move(-4, 0);
+    } else if (touch.screenX > centerX) {
+      this.paddle.move(4, 0);
+    }
   };
 };
 
