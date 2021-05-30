@@ -113,7 +113,7 @@ Player.prototype.update = function() {
     }
   }
   for (var i = touches?.length - 1; i >= 0; i--) {
-    let centerX = canvas.offsetLeft + canvas.offsetWidth / 2;
+    let centerX = canvas.offsetWidth / 2;
     var touch = touches[i];
     if (touch.screenX < centerX) {
       this.paddle.move(-4, 0);
@@ -122,14 +122,6 @@ Player.prototype.update = function() {
     }
   };
 };
-
-
-function setPosistion() {
-  update();
-
-  
-}
-
 
 Paddle.prototype.move = function(x, y) {
   this.x += x;
