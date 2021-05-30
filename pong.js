@@ -8,9 +8,8 @@ const animate =
     window.setTimeout(callback, 1000/60) 
   }
 
-// Could also use getElementByID
-
 const canvas = document.createElement('canvas')
+canvas.className = 'canvas'
 const width = 400
 const height = 600
 
@@ -24,7 +23,11 @@ const context = canvas.getContext('2d')
 window.onload = function() {
   document.body.appendChild(canvas)
   animate(step)
+  updateDomScores()
 }
+
+let player1Score = 0
+let player2Score = 0
 
 // the sttep Function updates all objects: players paddle,computers paddle, and the ball. Next it will render those objects. Lastly it will use requestAnimationFrame to call the step function again
 
@@ -69,10 +72,12 @@ function Paddle(x, y, width, height) {
 
 function Player() {
   this.paddle = new Paddle(175, 580, 50, 10);
+  this.score = 0
 }
 
 function Computer() {
- this.paddle = new Paddle(175, 10, 50, 10);
+  this.paddle = new Paddle(175, 10, 50, 10);
+  this.score = 0
 }
 
 function Ball(x, y) {
@@ -154,11 +159,22 @@ Ball.prototype.update = function(paddle1, paddle2) {
     this.x_speed = -this.x_speed;
   }
 
-  if(this.y < 0 || this.y > 600) { // a point was scored
+  if(this.y < 0) { // a point was scored Player1
     this.x_speed = 0;
     this.y_speed = 3;
     this.x = 200;
     this.y = 300;
+    player.score ++
+    updateDomScores()
+  }
+
+  if(this.y > 600) { // a point was scored compy
+    this.x_speed = 0;
+    this.y_speed = 3;
+    this.x = 200;
+    this.y = 300;
+    computer.score += 1 
+    updateDomScores()
   }
 
   if(top_y > 300) {
@@ -203,4 +219,9 @@ window.addEventListener("keydown", function(event) {
 window.addEventListener("keyup", function(event) {
   delete keysDown[event.keyCode];
 });
+
+function updateDomScores () {
+  document.getElementById('playerScore').innerHTML = player.score;
+  document.getElementById('computerScore').innerHTML = computer.score;
+}
 
