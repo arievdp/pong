@@ -112,7 +112,26 @@ Player.prototype.update = function() {
       this.paddle.move(0, 0);
     }
   }
+  for (var i = touches?.length - 1; i >= 0; i--) {
+    console.log(touches)
+      let centerX = canvas.offsetLeft + canvas.offsetWidth / 2;
+      var touch = touches[i];
+      if (touch.screenX < centerX) {
+        this.paddle.move(-4, 0);
+      } else if (touch.screenX > centerX) {
+        this.paddle.move(4, 0);
+      }
+      
+  };
 };
+
+
+function setPosistion() {
+  update();
+
+  
+}
+
 
 Paddle.prototype.move = function(x, y) {
   this.x += x;
@@ -210,7 +229,9 @@ Computer.prototype.update = function(ball) {
   }
 };
 
-let keysDown = {};
+let keysDown = {}
+let dots = {}
+let touches
 
 window.addEventListener("keydown", function(event) {
   keysDown[event.keyCode] = true;
@@ -219,6 +240,19 @@ window.addEventListener("keydown", function(event) {
 window.addEventListener("keyup", function(event) {
   delete keysDown[event.keyCode];
 });
+
+document.addEventListener('touchstart', function(event) {
+  touches = event.touches
+})
+
+document.addEventListener('touchend', function(event) {
+  touches = null
+})
+
+document.addEventListener('touchmove', function(event) {
+  event.preventDefault();
+  touches = event.touches;
+}, false);
 
 function updateDomScores () {
   document.getElementById('playerScore').innerHTML = player.score;
