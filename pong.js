@@ -115,11 +115,12 @@ Player.prototype.update = function() {
   for (var i = touches?.length - 1; i >= 0; i--) {
     let centerX = canvas.clientWidth / 2;
     var touch = touches[i];
-    if (touch.screenX < centerX) {
+    if (touch.clientX < centerX) {
       this.paddle.move(-4, 0);
-    } else if (touch.screenX > centerX) {
+    } else if (touch.clientX > centerX) {
       this.paddle.move(4, 0);
     }
+    delete touches[i]
   };
 };
 
